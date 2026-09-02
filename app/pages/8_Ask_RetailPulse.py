@@ -19,7 +19,16 @@ st.caption(
 )
 
 load_dotenv()
+# Works both locally (.env file) and on Streamlit Cloud (st.secrets) --
+# these are two different mechanisms. st.secrets raises FileNotFoundError
+# if no secrets file exists at all (e.g. local dev with only .env), so we
+# guard that lookup rather than let it crash the page.
 api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    try:
+        api_key = st.secrets.get("GEMINI_API_KEY", None)
+    except Exception:
+        api_key = None
 
 if not api_key:
     render_pending_box(
@@ -103,12 +112,15 @@ if st.button("Ask", type="primary") and question:
             from google.genai import types
             client = genai.Client(
                 api_key=api_key,
-                http_options=types.HttpOptions(timeout=20000),  # 20 second timeout, in ms
+                http_options=types.HttpOptions(timeout=30000),  # 30 second timeout, in ms
             )
             full_prompt = f"{SYSTEM_INSTRUCTION}\n\n{context}\n\nQUESTION: {question}"
             response = client.models.generate_content(
                 model="gemini-3.6-flash",
                 contents=full_prompt,
+                config=types.GenerateContentConfig(
+                    thinking_config=types.ThinkingConfig(thinking_level="low"),
+                ),
             )
             st.markdown('<div class="rp-card">', unsafe_allow_html=True)
             st.markdown('<div class="rp-card-title">Answer</div>', unsafe_allow_html=True)
