@@ -1,0 +1,17 @@
+# RetailPulse 360 — pinned dependencies
+# Pin versions to avoid repeat of the Plotly scatter_mapbox->scatter_map
+# breaking change hit during the Windows->Mac migration (Sept 2026).
+
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.5.0
+matplotlib==3.9.0
+seaborn==0.13.2
+plotly==5.24.1
+streamlit==1.38.0
+lightgbm==4.5.0
+joblib==1.4.2
+statsmodels==0.14.2
+jupyter==1.0.0
+ipykernel==6.29.4
