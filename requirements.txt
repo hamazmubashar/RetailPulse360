@@ -1,19 +1,23 @@
-# RetailPulse 360 — pinned dependencies
-# Pin versions to avoid repeat of the Plotly scatter_mapbox->scatter_map
-# breaking change hit during the Windows->Mac migration (Sept 2026).
+# RetailPulse 360 — dependencies
+# Note: minimum versions (>=) rather than exact pins, since exact pins from
+# our Mac dev environment (Sept 2026) predate prebuilt installers for newer
+# Python versions used by cloud deployment platforms, causing slow/failed
+# from-source builds. The one exception is Plotly, pinned to >=5.24 since
+# that's the exact version where scatter_map/Scattermap were introduced
+# (see the Windows->Mac migration notes for why this specific version matters).
 
-pandas==2.2.2
-numpy==1.26.4
-scipy==1.13.1
-scikit-learn==1.5.0
-matplotlib==3.9.0
-seaborn==0.13.2
-plotly==5.24.1
-streamlit==1.38.0
-lightgbm==4.5.0
-joblib==1.4.2
-statsmodels==0.14.2
-jupyter==1.0.0
-ipykernel==6.29.4
+pandas>=2.2.2
+numpy>=1.26.4
+scipy>=1.13.1
+scikit-learn>=1.5.0
+matplotlib>=3.9.0
+seaborn>=0.13.2
+plotly>=5.24.1
+streamlit>=1.38.0
+lightgbm>=4.5.0
+joblib>=1.4.2
+statsmodels>=0.14.2
+jupyter>=1.0.0
+ipykernel>=6.29.4
 google-genai
-python-dotenv==1.0.1
+python-dotenv>=1.0.1
