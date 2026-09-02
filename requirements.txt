@@ -15,3 +15,5 @@ joblib==1.4.2
 statsmodels==0.14.2
 jupyter==1.0.0
 ipykernel==6.29.4
+google-genai
+python-dotenv==1.0.1
